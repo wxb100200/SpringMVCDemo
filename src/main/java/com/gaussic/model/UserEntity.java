@@ -7,17 +7,22 @@ import java.util.Collection;
  * Created by dzkan on 2016/3/8.
  */
 @Entity
-@Table(name = "user", schema = "test", catalog = "")
+@Table(name = "user")
 public class UserEntity {
-    private int id;
-    private String nickname;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private Collection<BlogEntity> blogsById;
-
     @Id
     @Column(name = "id", nullable = false)
+    private int id;
+    @Column(name = "nickname", nullable = false, length = 45)
+    private String nickname;
+    @Column(name = "password", nullable = false, length = 45)
+    private String password;
+    @Column(name = "first_name", nullable = true, length = 45)
+    private String firstName;
+    @Column(name = "last_name", nullable = true, length = 45)
+    private String lastName;
+    @OneToMany(mappedBy = "userByUserId",fetch = FetchType.EAGER)
+    private Collection<BlogEntity> blogsById;
+
     public int getId() {
         return id;
     }
@@ -26,8 +31,6 @@ public class UserEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "nickname", nullable = false, length = 45)
     public String getNickname() {
         return nickname;
     }
@@ -36,8 +39,6 @@ public class UserEntity {
         this.nickname = nickname;
     }
 
-    @Basic
-    @Column(name = "password", nullable = false, length = 45)
     public String getPassword() {
         return password;
     }
@@ -46,8 +47,6 @@ public class UserEntity {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "first_name", nullable = true, length = 45)
     public String getFirstName() {
         return firstName;
     }
@@ -56,8 +55,6 @@ public class UserEntity {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "last_name", nullable = true, length = 45)
     public String getLastName() {
         return lastName;
     }
@@ -66,33 +63,6 @@ public class UserEntity {
         this.lastName = lastName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserEntity that = (UserEntity) o;
-
-        if (id != that.id) return false;
-        if (nickname != null ? !nickname.equals(that.nickname) : that.nickname != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        return result;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
     public Collection<BlogEntity> getBlogsById() {
         return blogsById;
     }
