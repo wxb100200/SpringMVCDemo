@@ -58,16 +58,31 @@
 
     </dependencies>
     <build>
-        <finalName>springmvcdemo</finalName>
+        <finalName>springdemo</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.3.7.v20160115</version>
+                <configuration>
+                    <jettyXml>
+                        ${project.basedir}/src/test/resources/jetty-http.xml
+                    </jettyXml>
+                    <webApp>
+                        <contextPath>/springdemo</contextPath>
+                        <defaultsDescriptor>${project.basedir}/src/test/resources/jetty-webdefault.xml</defaultsDescriptor>
+                    </webApp>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
 </project>

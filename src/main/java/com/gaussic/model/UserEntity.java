@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by dzkan on 2016/3/8.
  */
 @Entity
-@Table(name = "user", schema = "springdemo", catalog = "")
+@Table(name = "user", schema = "test", catalog = "")
 public class UserEntity {
     private int id;
     private String nickname;
